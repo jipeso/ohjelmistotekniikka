@@ -1,4 +1,5 @@
-from tkinter import ttk, constants, scrolledtext
+from tkinter import ttk, constants, scrolledtext, messagebox
+from services.article_service import article_service
 
 
 class ReadView:
@@ -47,6 +48,20 @@ class ReadView:
         content_text.grid(row=2, column=1, padx=10,
                           pady=10, sticky=constants.EW)
 
+        def confirm_delete():
+            if messagebox.askyesno("Confirm delete", f"delete '{article.title}'?"):
+                article_service.remove(article.id)
+                self._change_to_articles_view()
+
+        delete_button = ttk.Button(
+            master=self._frame,
+            text="delete article",
+            command=confirm_delete
+        )
+
+        delete_button.grid(row=0, column=1, padx=10,
+                           pady=10, sticky=constants.E)
+
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
@@ -55,3 +70,5 @@ class ReadView:
         self._frame.grid_columnconfigure(0, weight=1, minsize=150)
         self._frame.grid_columnconfigure(1, weight=2, minsize=300)
         self._frame.grid_columnconfigure(2, weight=1, minsize=150)
+
+        self._frame.grid_rowconfigure(3, weight=1)

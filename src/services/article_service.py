@@ -23,5 +23,8 @@ class ArticleService:
     def get(self, article_id):
         return self._article_repository.find_by_id(article_id)
 
+    def remove(self, article_id):
+        self._article_repository.delete(article_id)
+
 
 article_service = ArticleService()

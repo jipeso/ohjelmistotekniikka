@@ -31,7 +31,8 @@ class ArticleListView:
 
         label.grid(row=0, column=0, padx=10, pady=10, sticky=constants.W)
 
-        item_frame.grid_columnconfigure(0, weight=1)
+        item_frame.grid_columnconfigure(0, weight=1, )
+
         item_frame.pack(fill=constants.X)
 
     def _initialize(self):
