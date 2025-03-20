@@ -1,7 +1,7 @@
 from ui.articles_view import ArticlesView
 from ui.search_view import SearchView
 from ui.read_view import ReadView
-
+from ui.create_view import CreateView
 
 class UI:
     def __init__(self, root):
@@ -31,13 +31,24 @@ class UI:
 
         self._current_view.pack()
 
+    def _show_create_view(self):
+        self._hide_current_view()
+
+        self._current_view = CreateView(
+            self._root,
+            self._show_articles_view
+        )
+
+        self._current_view.pack()
+
     def _show_articles_view(self):
         self._hide_current_view()
 
         self._current_view = ArticlesView(
             self._root,
             self._show_search_view,
-            self._show_article_view
+            self._show_article_view,
+            self._show_create_view
         )
 
         self._current_view.pack()

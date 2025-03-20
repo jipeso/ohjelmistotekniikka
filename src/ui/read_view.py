@@ -49,7 +49,7 @@ class ReadView:
                           pady=10, sticky=constants.EW)
 
         def confirm_delete():
-            if messagebox.askyesno("Confirm delete", f"delete '{article.title}'?"):
+            if messagebox.askyesno("confirm delete", f"delete '{article.title}'?"):
                 article_service.remove(article.id)
                 self._change_to_articles_view()
 

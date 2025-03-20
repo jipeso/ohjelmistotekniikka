@@ -19,13 +19,13 @@ class SearchView:
 
     def _initialize_search_field(self):
         search_label = ttk.Label(
-            master=self._frame, text="Search for articles")
+            master=self._frame, text="search for articles")
 
         self._search_input = ttk.Entry(master=self._frame)
 
-        search_label.grid(column=1, row=1, padx=10,
+        search_label.grid(row=1, column=1, padx=10,
                           pady=10, sticky=constants.W)
-        self._search_input.grid(column=1, row=2, padx=10,
+        self._search_input.grid(row=2, column=1, padx=10,
                                 pady=10, sticky=constants.W)
 
     def _initialize(self):
@@ -33,7 +33,7 @@ class SearchView:
 
         back_button = ttk.Button(
             master=self._frame,
-            text="back to articles",
+            text="articles page",
             command=self._change_to_articles_view
         )
         back_button.grid(row=0, column=0, padx=10, pady=10, sticky=constants.W)
@@ -42,11 +42,11 @@ class SearchView:
 
         search_button = ttk.Button(
             master=self._frame,
-            text="Search",
+            text="search",
             command=self._handle_search
         )
 
-        search_button.grid(column=1, row=3, padx=10,
+        search_button.grid(row=3, column=1, padx=10,
                            pady=10, sticky=constants.W)
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=150)
