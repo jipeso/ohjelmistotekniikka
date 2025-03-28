@@ -2,7 +2,7 @@
 
 ### Sovelluksen tarkoitus
 
-Sovelluksen avulla käyttäjän on mahdollista hallita uutisartikkeleja.
+Sovelluksen avulla käyttäjän on mahdollista hallita uutisartikkeleja. Sovellus käyttää rss-syötteitä uutisartikkelien hakemiseen eri uutissivuilta. Sovelluksen avulla käyttäjä voi kätevästi etsiä ajankohtaisia artikkeleja omaan käyttöön.
 
 ### Toiminnallisuus
 
@@ -10,9 +10,10 @@ Sovelluksen avulla käyttäjän on mahdollista hallita uutisartikkeleja.
 - Käyttäjä voi tallentaa uuden artikkelin listaan
 - Käyttäjä voi poistaa artikkelin listasta
 - Käyttäjä voi suodataa artikkelilistaa
-- Käyttäjä voi selata tiettyjen nettisivujen artikkeleja sovelluksessa
+- Käyttäjä voi selata tiettyjen nettisivujen artikkeleja rss-syötteiden avulla
+- Käyttäjä voi tallentaa syötteiden artikkeleja
 
-## Jatkokehitysideoita
+### Jatkokehitysideoita
 
 - Hakutoiminto artikkelien hakemiseen netistä
 - Hakutoiminnon ehdottamien artikkelien tallentaminen artikkelilistaan

@@ -17,19 +17,23 @@ class ArticleListView:
     def destroy(self):
         self._frame.destroy()
 
-    def _initialize_article_item(self, article):
+    def _initialize_article_item(self, article, index):
         item_frame = ttk.Frame(master=self._frame)
+
+        bg_color = "#f2f2f2" if index % 2 == 0 else "#ffffff"
 
         label = ttk.Label(
             master=item_frame,
             text=article.title,
             wraplength=300,
+            background=bg_color,
             cursor="hand2",
+            padding=10
         )
+        label.grid(row=0, column=0, sticky=constants.EW)
 
         label.bind("<Button-1>", lambda e: self._change_to_article_view(article))
-
-        label.grid(row=0, column=0, padx=10, pady=10, sticky=constants.W)
+        item_frame.grid_columnconfigure(0, weight=1)
 
         item_frame.pack(fill=constants.X)
 
@@ -42,10 +46,11 @@ class ArticleListView:
             font=('Times', '16', 'bold')
         )
 
-        articles_label.pack(pady=30)
+        articles_label.pack(pady=20, anchor=constants.W)
 
-        for article in self._articles:
-            self._initialize_article_item(article)
+        for index, article in enumerate(self._articles):
+            self._initialize_article_item(article, index)
+
 
 class ArticlesView:
     def __init__(self, root, change_to_search_view, change_to_article_view, change_to_create_view):
@@ -83,7 +88,6 @@ class ArticlesView:
         header_frame = ttk.Frame(master=self._frame)
         header_frame.grid(row=0, column=0, columnspan=2, sticky=constants.W)
 
-
         search_page_button = ttk.Button(
             master=header_frame,
             text="search page",
@@ -93,7 +97,7 @@ class ArticlesView:
         search_page_button.grid(
             row=0,
             column=0,
-            padx=5,
+            padx=10,
             pady=10,
             sticky=constants.W
         )
@@ -107,7 +111,6 @@ class ArticlesView:
         create_page_button.grid(
             row=0,
             column=1,
-            padx=5,
             pady=10,
             sticky=constants.W
         )

@@ -1,4 +1,4 @@
-from tkinter import ttk, constants
+from tkinter import ttk, constants, scrolledtext
 from services.article_service import article_service
 
 
@@ -21,12 +21,12 @@ class CreateView:
 
     def _handle_create(self):
         title = self._title_input.get()
-        content = self._content_input.get()
+        content = self._content_input.get("1.0", constants.END).strip()
 
         if title and content:
             article_service.create(title, content)
             self._change_to_articles_view()
-            
+
     def _initialize_fields(self):
         title_label = ttk.Label(
             master=self._frame, text="title"
@@ -34,15 +34,27 @@ class CreateView:
         title_label.grid(row=1, column=1, padx=10, pady=10, sticky=constants.W)
 
         self._title_input = ttk.Entry(master=self._frame)
-        self._title_input.grid(row=2, column=1,  padx=10, pady=10, sticky=constants.W)
+        self._title_input.grid(row=2, column=1,  padx=10,
+                               pady=10, sticky=constants.EW)
 
         content_label = ttk.Label(
             master=self._frame, text="content"
         )
-        content_label.grid(row=3, column=1, padx=10, pady=10, sticky=constants.W)
+        content_label.grid(row=3, column=1, padx=10,
+                           pady=10, sticky=constants.W)
 
-        self._content_input = ttk.Entry(master=self._frame)
-        self._content_input.grid(row=4, column=1,  padx=10, pady=10, sticky=constants.W)
+        self._content_input = scrolledtext.ScrolledText(
+            master=self._frame,
+            wrap="word",
+            font=("Times New Roman", 12),
+            background="#F1F8F2",
+            padx=10,
+            pady=10,
+            height=7
+        )
+
+        self._content_input.grid(row=4, column=1, padx=10,
+                                 pady=10, sticky=constants.EW)
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
@@ -58,11 +70,12 @@ class CreateView:
 
         create_button = ttk.Button(
             master=self._frame,
-            text="create article",
+            text="create",
             command=self._handle_create
         )
 
-        create_button.grid(row=5, column=1, padx=10, pady=10, sticky=constants.W)
+        create_button.grid(row=5, column=1, padx=10,
+                           pady=10, sticky=constants.W)
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=150)
         self._frame.grid_columnconfigure(1, weight=2, minsize=300)

@@ -3,6 +3,7 @@ from ui.search_view import SearchView
 from ui.read_view import ReadView
 from ui.create_view import CreateView
 
+
 class UI:
     def __init__(self, root):
         self._root = root
@@ -10,9 +11,6 @@ class UI:
 
     def start(self):
         self._show_articles_view()
-
-    def _handle_search(self):
-        pass
 
     def _hide_current_view(self):
         if self._current_view:
@@ -58,7 +56,6 @@ class UI:
 
         self._current_view = SearchView(
             self._root,
-            self._handle_search,
             self._show_articles_view
         )
 
