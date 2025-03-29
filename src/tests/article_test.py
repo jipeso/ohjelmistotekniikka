@@ -1,12 +1,14 @@
 import unittest
 from entities.article import Article
 
+
 class TestArticle(unittest.TestCase):
     def setUp(self):
         self.article = Article(
             "test article",
             "content for testing"
         )
+
     def test_created_article_exists(self):
         self.assertNotEqual(self.article, None)
 

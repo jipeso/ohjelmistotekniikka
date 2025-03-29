@@ -1,6 +1,6 @@
-from pathlib import Path
 from entities.article import Article
 from config import ARTICLES_FILE_PATH
+from util import read_file_lines, write_file_lines
 
 
 class ArticleRepository:
@@ -35,38 +35,21 @@ class ArticleRepository:
     def delete_all(self):
         self._write([])
 
-    def _ensure_file_exists(self):
-        Path(self._file_path).touch()
 
     def _read(self):
         articles = []
+        rows = read_file_lines(self._file_path)
 
-        self._ensure_file_exists()
+        for parts in rows:
+            article_id, title, content = parts[:3]
 
-        with open(self._file_path, encoding="utf-8") as file:
-            for row in file:
-                row = row.replace("\n", "")
-                parts = row.split(";")
-
-                article_id = parts[0]
-                title = parts[1]
-                content = parts[2]
-
-                articles.append(
-                    Article(title, content, article_id)
-                )
+            articles.append(Article(title, content, article_id))
 
         return articles
 
     def _write(self, articles):
-        self._ensure_file_exists()
-
-        with open(self._file_path, "w", encoding="utf-8") as file:
-            for article in articles:
-
-                row = f"{article.id};{article.title};{article.content}"
-
-                file.write(row+"\n")
+        article_data = [(article.id, article.title, article.content) for article in articles]
+        write_file_lines(self._file_path, article_data)
 
 
 article_repository = ArticleRepository(ARTICLES_FILE_PATH)

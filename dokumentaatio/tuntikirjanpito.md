@@ -7,3 +7,4 @@
 | 20.3  | 1    | Sovelluksen toiminnallisuus |
 | 21.3  | 3    | UI parannuksia, hakusivun kehittäminen |
 | 28.3  | 5    | Refaktorointia, rss parseri sovellukseen |
+| 29.3  | 2    | refaktorointia ja CI palvelin |

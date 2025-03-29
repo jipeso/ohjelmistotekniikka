@@ -1,8 +1,8 @@
-from pathlib import Path
 import feedparser
 from entities.feed import Feed
 from entities.article import Article
 from config import FEEDS_FILE_PATH
+from util import read_file_lines
 
 
 class FeedRepository:
@@ -12,26 +12,14 @@ class FeedRepository:
     def find_all(self):
         return self._read()
 
-    def _ensure_file_exists(self):
-        Path(self._file_path).touch()
-
     def _read(self):
         feeds = []
+        rows = read_file_lines(self._file_path)
 
-        self._ensure_file_exists()
+        for parts in rows:
+            feed_id, url, name = parts[:3]
 
-        with open(self._file_path, encoding="utf-8") as file:
-            for row in file:
-                row = row.replace("\n", "")
-                parts = row.split(";")
-
-                feed_id = parts[0]
-                url = parts[1]
-                name = parts[2]
-
-                feeds.append(
-                    Feed(url, name, feed_id)
-                )
+            feeds.append(Feed(url, name, feed_id))
 
         return feeds
 
