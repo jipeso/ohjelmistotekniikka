@@ -25,7 +25,15 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install --no-root
+      - name: Format code
+        run: poetry run invoke format
       - name: Run tests
         run: poetry run invoke coverage
       - name: Lint
         run: poetry run invoke lint
+      - name: Coverage report
+        run: poetry run coverage xml
+      - name: Coverage report to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

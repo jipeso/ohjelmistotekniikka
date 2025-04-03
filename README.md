@@ -2,6 +2,8 @@
 
 ![CI](https://github.com/jipeso/ohjelmistotekniikka/actions/workflows/main.yml/badge.svg)
 
+[![codecov](https://codecov.io/gh/jipeso/ohjelmistotekniikka/graph/badge.svg?token=Y9H6OC1Q2A)](https://codecov.io/gh/jipeso/ohjelmistotekniikka)
+
 Uutisartikkelihallinta-sovellus, tehty ohjelmistotekniikan harjoitustyönä keväällä 2025.
 
 ### Dokumentaatio

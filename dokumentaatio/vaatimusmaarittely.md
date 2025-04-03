@@ -6,11 +6,11 @@ Sovelluksen avulla käyttäjän on mahdollista hallita uutisartikkeleja. Sovellu
 
 ### Toiminnallisuus
 
-- Käyttäjä näkee listan tallennetuista artikkeleista
-- Käyttäjä voi tallentaa uuden artikkelin listaan
-- Käyttäjä voi poistaa artikkelin listasta
+- Käyttäjä näkee listan tallennetuista artikkeleista "tehty"
+- Käyttäjä voi tallentaa uuden artikkelin listaan "tehty"
+- Käyttäjä voi poistaa artikkelin listasta "tehty"
 - Käyttäjä voi suodataa artikkelilistaa
-- Käyttäjä voi selata tiettyjen nettisivujen artikkeleja rss-syötteiden avulla
+- Käyttäjä voi selata tiettyjen nettisivujen artikkeleja rss-syötteiden avulla "tehty"
 - Käyttäjä voi tallentaa syötteiden artikkeleja
 
 ### Jatkokehitysideoita
