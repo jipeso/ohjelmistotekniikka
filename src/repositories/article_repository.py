@@ -28,7 +28,8 @@ class ArticleRepository:
         articles = self.find_all()
 
         articles_without_id = filter(
-            lambda article: article.id != article_id, articles)
+            lambda article: article.id != article_id, articles
+        )
 
         self._write(articles_without_id)
 
