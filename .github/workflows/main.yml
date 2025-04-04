@@ -4,7 +4,7 @@ env:
   CI: true
   ARTICLES_FILENAME: articles.csv
   FEEDS_FILENAME: feeds.csv
-  
+
 on:
   push:
     branches: [main]
@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
       - name: Install Poetry
         run: pip install poetry
       - name: Install dependencies
@@ -32,7 +32,7 @@ jobs:
       - name: Lint
         run: poetry run invoke lint
       - name: Coverage report
-        run: poetry run coverage xml
+        run: poetry run invoke coverage-report-xml
       - name: Coverage report to Codecov
         uses: codecov/codecov-action@v4
         env:

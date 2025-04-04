@@ -50,6 +50,7 @@ class ArticleRepository:
     def _write(self, articles):
         article_data = [(article.id, article.title, article.content)
                         for article in articles]
+
         write_file_lines(self._file_path, article_data)
 
 

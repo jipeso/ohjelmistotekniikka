@@ -4,4 +4,6 @@ __pycache__
 htmlcov
 .env
 articles.csv
+test-articles.csv
+test-feeds.csv
 *.xml
