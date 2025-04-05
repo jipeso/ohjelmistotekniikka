@@ -10,3 +10,4 @@
 | 29.3  | 2    | refaktorointia ja CI palvelin             |
 |  3.4  | 2    | testejä                                   |
 |  4.4  | 4    | testejä                                   |
+|  5.4  | 5    | json tallennus, hakutulosten tallennus    |

@@ -10,3 +10,8 @@
 
 - Lisätty FeedRepository- ja FeedService-luokat
 - Käyttäjä voi hakea uutisia csv-tiedostoon kirjatuista RSS-syötteistä
+
+## Viikko 4
+
+- Tallennus vaihdettu json:iin
+- Käyttäjä voi tallentaa rss-syötteen tuloksia klikkaamalla otsikkoa

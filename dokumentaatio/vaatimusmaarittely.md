@@ -11,7 +11,7 @@ Sovelluksen avulla käyttäjän on mahdollista hallita uutisartikkeleja. Sovellu
 - Käyttäjä voi poistaa artikkelin listasta "tehty"
 - Käyttäjä voi suodataa artikkelilistaa
 - Käyttäjä voi selata tiettyjen nettisivujen artikkeleja rss-syötteiden avulla "tehty"
-- Käyttäjä voi tallentaa syötteiden artikkeleja
+- Käyttäjä voi tallentaa syötteiden artikkeleja "tehty"
 
 ### Jatkokehitysideoita
 
