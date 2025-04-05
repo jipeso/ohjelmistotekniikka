@@ -34,7 +34,7 @@ class TestFeedService(unittest.TestCase):
 
     def test_create_feed(self):
         self.feed_service.create_feed('https://example.com', 'testing')
-        feeds = self.feed_service.get_all()
+        feeds = self.feed_service.get_all_feeds()
 
         self.assertEqual(len(feeds), 1)
         self.assertEqual(feeds[0].url, 'https://example.com')
@@ -45,12 +45,12 @@ class TestFeedService(unittest.TestCase):
             self.feed_a.url, self.feed_a.name)
         feed_b = self.feed_service.create_feed(
             self.feed_b.url, self.feed_b.name)
-        feeds = self.feed_service.get_all()
+        feeds = self.feed_service.get_all_feeds()
 
         self.assertEqual(len(feeds), 2)
         self.feed_service.remove_feed(feed_a.id)
 
-        feeds_after_remove = self.feed_service.get_all()
+        feeds_after_remove = self.feed_service.get_all_feeds()
 
         self.assertEqual(len(feeds_after_remove), 1)
         self.assertNotEqual(feeds_after_remove[0].id, feed_a.id)
