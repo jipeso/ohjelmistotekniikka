@@ -12,17 +12,6 @@ class FeedRepository:
     def find_all(self):
         return self._read()
 
-    def _read(self):
-        feeds = []
-        rows = read_file_lines(self._file_path)
-
-        for parts in rows:
-            feed_id, url, name = parts[:3]
-
-            feeds.append(Feed(url, name, feed_id))
-
-        return feeds
-
     def create(self, feed):
         feeds = self.find_all()
         feeds.append(feed)
@@ -33,9 +22,28 @@ class FeedRepository:
     def delete_all(self):
         self._write([])
 
+    def _read(self):
+        feeds = []
+        data = read_file_lines(self._file_path)
+
+        for feed in data:
+            feed_id = feed.get("id")
+            url = feed.get("url")
+            name = feed.get("name")
+
+            feeds.append(Feed(url, name, feed_id))
+
+        return feeds
+
     def _write(self, feeds):
-        feed_data = [(feed.id, feed.url, feed.name)
-                     for feed in feeds]
+        feed_data = [
+            {
+                "id": feed.id,
+                "url": feed.url,
+                "name": feed.name
+            }
+            for feed in feeds
+        ]
 
         write_file_lines(self._file_path, feed_data)
 
@@ -46,7 +54,8 @@ class FeedRepository:
         for entry in feed.entries:
             article = Article(
                 title=entry.title,
-                content=entry.link
+                content=None,
+                url=entry.link
             )
             articles.append(article)
 

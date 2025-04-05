@@ -10,6 +10,7 @@ class CreateView:
 
         self._title_input = None
         self._content_input = None
+        self._url_input = None
 
         self._initialize()
 
@@ -22,39 +23,46 @@ class CreateView:
     def _handle_create(self):
         title = self._title_input.get()
         content = self._content_input.get("1.0", constants.END).strip()
+        url = self._url_input.get()
 
-        if title and content:
-            article_service.create_article(title, content)
+        if title and content and url:
+            article_service.create_article(title, content, url)
             self._change_to_articles_view()
 
     def _initialize_fields(self):
         title_label = ttk.Label(
             master=self._frame, text="title"
         )
-        title_label.grid(row=1, column=1, padx=10, pady=10, sticky=constants.W)
+        title_label.grid(row=1, column=1, padx=10, pady=5, sticky=constants.W)
 
         self._title_input = ttk.Entry(master=self._frame)
         self._title_input.grid(row=2, column=1,  padx=10,
-                               pady=10, sticky=constants.EW)
+                               pady=5, sticky=constants.EW)
 
         content_label = ttk.Label(
             master=self._frame, text="content"
         )
         content_label.grid(row=3, column=1, padx=10,
-                           pady=10, sticky=constants.W)
+                           pady=5, sticky=constants.W)
 
         self._content_input = scrolledtext.ScrolledText(
             master=self._frame,
             wrap="word",
-            font=("Times New Roman", 12),
-            background="#F1F8F2",
-            padx=10,
-            pady=10,
             height=7
         )
 
         self._content_input.grid(row=4, column=1, padx=10,
-                                 pady=10, sticky=constants.EW)
+                                 pady=5, sticky=constants.EW)
+
+        url_label = ttk.Label(
+            master=self._frame, text="url"
+        )
+        url_label.grid(row=5, column=1, padx=10, pady=5, sticky=constants.W)
+
+        self._url_input = ttk.Entry(master=self._frame)
+
+        self._url_input.grid(row=6, column=1, padx=10,
+                             pady=5, sticky=constants.W)
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
@@ -74,7 +82,7 @@ class CreateView:
             command=self._handle_create
         )
 
-        create_button.grid(row=5, column=1, padx=10,
+        create_button.grid(row=7, column=1, padx=10,
                            pady=10, sticky=constants.W)
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=150)

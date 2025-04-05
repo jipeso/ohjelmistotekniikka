@@ -1,3 +1,4 @@
+from newspaper import Article as NewsArticle
 from entities.article import Article
 
 from repositories.article_repository import (
@@ -15,8 +16,8 @@ class ArticleService:
     def get_all_articles(self):
         return self._article_repository.find_all()
 
-    def create_article(self, title, content):
-        article = Article(title=title, content=content)
+    def create_article(self, title, content, url):
+        article = Article(title=title, content=content, url=url)
 
         return self._article_repository.create(article)
 
@@ -25,6 +26,19 @@ class ArticleService:
 
     def remove_article(self, article_id):
         self._article_repository.delete(article_id)
+
+    def scrape_web_article(self, url):
+        news_article = NewsArticle(url)
+        news_article.download()
+        news_article.parse()
+
+        article = Article(
+            title=news_article.title,
+            content=news_article.text,
+            url=url
+        )
+
+        return self._article_repository.create(article)
 
 
 article_service = ArticleService()

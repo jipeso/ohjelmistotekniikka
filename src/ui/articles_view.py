@@ -25,10 +25,10 @@ class ArticleListView:
         label = ttk.Label(
             master=item_frame,
             text=article.title,
-            wraplength=300,
+            wraplength=400,
             background=bg_color,
             cursor="hand2",
-            padding=10
+            padding=5
         )
         label.grid(row=0, column=0, sticky=constants.EW)
 
@@ -46,7 +46,7 @@ class ArticleListView:
             font=('Times', '16', 'bold')
         )
 
-        articles_label.pack(pady=20, anchor=constants.W)
+        articles_label.pack(pady=5, anchor=constants.W)
 
         for index, article in enumerate(self._articles):
             self._initialize_article_item(article, index)
@@ -97,7 +97,7 @@ class ArticlesView:
         search_page_button.grid(
             row=0,
             column=0,
-            padx=10,
+            padx=5,
             pady=10,
             sticky=constants.W
         )
@@ -111,6 +111,7 @@ class ArticlesView:
         create_page_button.grid(
             row=0,
             column=1,
+            padx=5,
             pady=10,
             sticky=constants.W
         )
@@ -128,6 +129,6 @@ class ArticlesView:
             sticky=constants.EW
         )
 
-        self._frame.grid_columnconfigure(0, weight=1, minsize=150)
-        self._frame.grid_columnconfigure(1, weight=2, minsize=300)
-        self._frame.grid_columnconfigure(2, weight=1, minsize=300)
+        self._frame.grid_columnconfigure(0, weight=1)
+        self._frame.grid_columnconfigure(1, weight=2)
+        self._frame.grid_columnconfigure(2, weight=1)

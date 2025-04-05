@@ -38,20 +38,30 @@ class ArticleRepository:
 
     def _read(self):
         articles = []
-        rows = read_file_lines(self._file_path)
+        data = read_file_lines(self._file_path)
 
-        for parts in rows:
-            article_id, title, content = parts[:3]
+        for article in data:
+            article_id = article.get("id")
+            title = article.get("title")
+            content = article.get("content")
+            url = article.get("url")
 
-            articles.append(Article(title, content, article_id))
+            articles.append(Article(title, content, url, article_id))
 
         return articles
 
     def _write(self, articles):
-        article_data = [(article.id, article.title, article.content)
-                        for article in articles]
+        data = [
+            {
+                "id": article.id,
+                "title": article.title,
+                "content": article.content,
+                "url": article.url
+            }
+            for article in articles
+        ]
 
-        write_file_lines(self._file_path, article_data)
+        write_file_lines(self._file_path, data)
 
 
 article_repository = ArticleRepository(ARTICLES_FILE_PATH)

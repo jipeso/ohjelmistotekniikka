@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 
@@ -5,14 +6,16 @@ def ensure_file_exists(file_path):
     Path(file_path).touch()
 
 
-def write_file_lines(file_path, rows):
+def write_file_lines(file_path, data):
     ensure_file_exists(file_path)
     with open(file_path, "w", encoding="utf-8") as file:
-        for row in rows:
-            file.write(";".join(map(str, row)) + "\n")
+        json.dump(data, file, indent=2)
 
 
 def read_file_lines(file_path):
     ensure_file_exists(file_path)
     with open(file_path, encoding="utf-8") as file:
-        return [line.strip().split(";") for line in file]
+        try:
+            return json.load(file)
+        except json.JSONDecodeError:
+            return []

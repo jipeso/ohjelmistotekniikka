@@ -2,7 +2,8 @@ import uuid
 
 
 class Article:
-    def __init__(self, title, content, article_id=None):
+    def __init__(self, title, content, url, article_id=None):
         self.title = title
         self.content = content
+        self.url = url
         self.id = article_id or str(uuid.uuid4())

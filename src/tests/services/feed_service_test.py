@@ -17,7 +17,7 @@ class StubFeedRepository:
         return feed
 
     def parse(self, url):
-        return [Article('testing', 'https://entry.com', '555')]
+        return [Article('testing', None, 'https://entry.com', '555')]
 
     def delete(self, feed_id):
         feeds_after_delete = filter(

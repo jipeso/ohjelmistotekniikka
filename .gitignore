@@ -3,7 +3,7 @@ __pycache__
 .coverage
 htmlcov
 .env
-articles.csv
-test-articles.csv
-test-feeds.csv
+articles.json
+test-articles.json
+test-feeds.json
 *.xml

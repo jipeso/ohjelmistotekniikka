@@ -36,11 +36,14 @@ class TestFeedRepository(unittest.TestCase):
         article_entry.title = 'testing'
         article_entry.link = 'https://testing.com/article'
 
-        mock_parse.return_value.entries = [article_entry]
+        mock_feed = Mock()
+        mock_feed.entries = [article_entry]
+        mock_parse.return_value = mock_feed
 
         parsed_articles = feed_repository.parse('https://mockparse.com/rss')
 
         self.assertEqual(len(parsed_articles), 1)
         self.assertEqual(parsed_articles[0].title, 'testing')
+        self.assertEqual(parsed_articles[0].content, None)
         self.assertEqual(
-            parsed_articles[0].content, 'https://testing.com/article')
+            parsed_articles[0].url, 'https://testing.com/article')
