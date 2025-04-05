@@ -6,7 +6,6 @@ def main():
     window = Tk()
     window.title("Article manager")
     window.geometry("600x400")
-    window.minsize(600, 400)
 
     ui_view = UI(window)
     ui_view.start()

@@ -22,7 +22,7 @@ class FeedService:
 
         return articles[:limit]
 
-    def get_all(self):
+    def get_all_feeds(self):
         return self._feed_repository.find_all()
 
     def remove_feed(self, feed_id):

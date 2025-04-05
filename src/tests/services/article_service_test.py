@@ -32,37 +32,37 @@ class TestArticleService(unittest.TestCase):
         self.article_b = Article('test article b', 'testing b')
 
     def test_create(self):
-        self.article_service.create('test title', 'test content')
-        articles = self.article_service.get_all()
+        self.article_service.create_article('test title', 'test content')
+        articles = self.article_service.get_all_articles()
 
         self.assertEqual(len(articles), 1)
         self.assertEqual(articles[0].title, 'test title')
         self.assertEqual(articles[0].content, 'test content')
 
     def test_remove(self):
-        article_a = self.article_service.create(
+        article_a = self.article_service.create_article(
             self.article_a.title, self.article_a.content)
-        article_b = self.article_service.create(
+        article_b = self.article_service.create_article(
             self.article_b.title, self.article_b.content)
-        articles = self.article_service.get_all()
+        articles = self.article_service.get_all_articles()
 
         self.assertEqual(len(articles), 2)
-        self.article_service.remove(article_a.id)
+        self.article_service.remove_article(article_a.id)
 
-        articles_after_remove = self.article_service.get_all()
+        articles_after_remove = self.article_service.get_all_articles()
 
         self.assertEqual(len(articles_after_remove), 1)
         self.assertNotEqual(articles_after_remove[0].id, article_a.id)
 
     def test_get(self):
-        article_a = self.article_service.create(
+        article_a = self.article_service.create_article(
             self.article_a.title, self.article_a.content)
-        article_b = self.article_service.create(
+        article_b = self.article_service.create_article(
             self.article_b.title, self.article_b.content)
-        returned_article_b = self.article_service.get(article_b.id)
+        returned_article_b = self.article_service.get_article(article_b.id)
 
         self.assertEqual(article_b.title, returned_article_b.title)
         self.assertEqual(article_b.content, returned_article_b.content)
 
-        nonexistent_article = self.article_service.get("123")
+        nonexistent_article = self.article_service.get_article("123")
         self.assertEqual(nonexistent_article, None)

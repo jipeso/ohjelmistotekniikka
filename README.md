@@ -13,6 +13,8 @@ Uutisartikkelihallinta-sovellus, tehty ohjelmistotekniikan harjoitustyönä kev�
 
 [Changelog](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/changelog.md)
 
+[Arkkitehtuurikuvaus](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/arkkitehtuuri.md)
+
 ### Sovelluksen käyttö
 
 Asenna riippuvuudet komennolla:

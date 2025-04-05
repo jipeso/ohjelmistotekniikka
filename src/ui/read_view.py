@@ -50,7 +50,7 @@ class ReadView:
 
         def confirm_delete():
             if messagebox.askyesno("confirm delete", f"delete '{article.title}'?"):
-                article_service.remove(article.id)
+                article_service.remove_article(article.id)
                 self._change_to_articles_view()
 
         delete_button = ttk.Button(

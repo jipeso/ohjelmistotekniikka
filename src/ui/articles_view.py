@@ -74,7 +74,7 @@ class ArticlesView:
         if self._article_list_view:
             self._article_list_view.destroy()
 
-        articles = article_service.get_all()
+        articles = article_service.get_all_articles()
 
         self._article_list_view = ArticleListView(
             self._article_list_frame,

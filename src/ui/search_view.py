@@ -26,7 +26,7 @@ class SearchView:
         )
         feed_label.grid(row=1, column=2, padx=10, pady=10, sticky=constants.W)
 
-        feeds = feed_service.get_all()
+        feeds = feed_service.get_all_feeds()
         feed_names = ["choose a feed..."] + [feed.name for feed in feeds]
 
         feed_selector = ttk.Combobox(

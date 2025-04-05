@@ -24,7 +24,7 @@ class CreateView:
         content = self._content_input.get("1.0", constants.END).strip()
 
         if title and content:
-            article_service.create(title, content)
+            article_service.create_article(title, content)
             self._change_to_articles_view()
 
     def _initialize_fields(self):

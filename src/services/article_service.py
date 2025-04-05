@@ -12,18 +12,18 @@ class ArticleService:
     ):
         self._article_repository = article_repository
 
-    def get_all(self):
+    def get_all_articles(self):
         return self._article_repository.find_all()
 
-    def create(self, title, content):
+    def create_article(self, title, content):
         article = Article(title=title, content=content)
 
         return self._article_repository.create(article)
 
-    def get(self, article_id):
+    def get_article(self, article_id):
         return self._article_repository.find_by_id(article_id)
 
-    def remove(self, article_id):
+    def remove_article(self, article_id):
         self._article_repository.delete(article_id)
 
 
