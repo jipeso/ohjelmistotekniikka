@@ -11,5 +11,5 @@ except FileNotFoundError:
 ARTICLES_FILENAME = os.getenv("ARTICLES_FILENAME") or "articles.json"
 ARTICLES_FILE_PATH = os.path.join(dirname, "..", "data", ARTICLES_FILENAME)
 
-FEEDS_FILENAME = os.getenv("FEEDS_FILENAME") or "feeds.csv"
+FEEDS_FILENAME = os.getenv("FEEDS_FILENAME") or "feeds.json"
 FEEDS_FILE_PATH = os.path.join(dirname, "..", "data", FEEDS_FILENAME)

@@ -1,5 +1,6 @@
 from tkinter import ttk, constants, scrolledtext, messagebox
 from services.article_service import article_service
+import webbrowser
 
 
 class ReadView:
@@ -17,27 +18,33 @@ class ReadView:
     def destroy(self):
         self._frame.destroy()
 
+    def _on_link_click(self, url):
+        webbrowser.open_new(url)
+
     def _initialize_article(self, article):
         title_label = ttk.Label(
             master=self._frame,
             text=article.title,
-            font=("Times New Roman", 16, "bold"),
-            wraplength=300
+            font=("Times", 16, "bold"),
+            wraplength=400
         )
         title_label.grid(row=1, column=1, padx=10,
                          pady=5, sticky=constants.EW)
 
         url_label = ttk.Label(
             master=self._frame,
-            text=article.url
+            text=article.url,
+            cursor="hand2",
+            foreground="blue"
         )
+        url_label.bind("<Button-1>", lambda e: self._on_link_click(article.url))
 
-        url_label.grid(row=2, column=1, padx=10, pady=5, sticky=constants.EW)
+        url_label.grid(row=2, column=1, padx=10, pady=5, sticky=constants.EW)    
 
         content_text = scrolledtext.ScrolledText(
             master=self._frame,
             wrap="word",
-            font=("Times New Roman", 10),
+            font=("Times", 12),
             background="#F1F8F2",
             padx=5,
             pady=5
@@ -55,7 +62,7 @@ class ReadView:
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
-        header_frame.grid(row=0, column=0, columnspan=2, sticky=constants.W)
+        header_frame.grid(row=0, column=0, columnspan=2, sticky=constants.EW)
 
         back_button = ttk.Button(
             master=header_frame,
