@@ -5,10 +5,10 @@ from services.article_service import article_service
 
 
 class SearchView:
-    def __init__(self, root, change_to_articles_view, change_to_create_view):
+    def __init__(self, root, show_articles_view, show_create_view):
         self._root = root
-        self._change_to_articles_view = change_to_articles_view
-        self._change_to_create_view = change_to_create_view
+        self._show_articles_view = show_articles_view
+        self._show_create_view = show_create_view
         self._frame = None
         self._search_input = None
         self._result_list_frame = None
@@ -66,7 +66,7 @@ class SearchView:
         articles_page_button = ttk.Button(
             master=header_frame,
             text="articles page",
-            command=self._change_to_articles_view
+            command=self._show_articles_view
         )
 
         articles_page_button.grid(
@@ -80,7 +80,7 @@ class SearchView:
         create_page_button = ttk.Button(
             master=header_frame,
             text="create article",
-            command=self._change_to_create_view
+            command=self._show_create_view
         )
 
         create_page_button.grid(
@@ -127,7 +127,7 @@ class SearchView:
     def handle_add_article(self, article):
         if messagebox.askyesno("add to article list", f"add '{article.title}'?"):
             article_service.scrape_web_article(article.url)
-            self._change_to_articles_view()
+            self._show_articles_view()
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)

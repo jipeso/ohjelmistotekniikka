@@ -3,10 +3,10 @@ from services.article_service import article_service
 
 
 class ArticleListView:
-    def __init__(self, root, articles, change_to_article_view):
+    def __init__(self, root, articles, show_article_view):
         self._root = root
         self._articles = articles
-        self._change_to_article_view = change_to_article_view
+        self._show_article_view = show_article_view
         self._frame = None
 
         self._initialize()
@@ -32,7 +32,7 @@ class ArticleListView:
         )
         label.grid(row=0, column=0, sticky=constants.EW)
 
-        label.bind("<Button-1>", lambda e: self._change_to_article_view(article))
+        label.bind("<Button-1>", lambda e: self._show_article_view(article))
         item_frame.grid_columnconfigure(0, weight=1)
 
         item_frame.pack(fill=constants.X)
@@ -53,12 +53,12 @@ class ArticleListView:
 
 
 class ArticlesView:
-    def __init__(self, root, change_to_search_view, change_to_article_view, change_to_create_view):
+    def __init__(self, root, show_search_view, show_article_view, show_create_view):
         self._root = root
         self._frame = None
-        self._change_to_search_view = change_to_search_view
-        self._change_to_article_view = change_to_article_view
-        self._change_to_create_view = change_to_create_view
+        self._show_search_view = show_search_view
+        self._show_article_view = show_article_view
+        self._show_create_view = show_create_view
         self._article_list_frame = None
         self._article_list_view = None
 
@@ -79,7 +79,7 @@ class ArticlesView:
         self._article_list_view = ArticleListView(
             self._article_list_frame,
             articles,
-            self._change_to_article_view
+            self._show_article_view
         )
 
         self._article_list_view.pack()
@@ -91,7 +91,7 @@ class ArticlesView:
         search_page_button = ttk.Button(
             master=header_frame,
             text="search page",
-            command=self._change_to_search_view
+            command=self._show_search_view
         )
 
         search_page_button.grid(
@@ -105,7 +105,7 @@ class ArticlesView:
         create_page_button = ttk.Button(
             master=header_frame,
             text="create article",
-            command=self._change_to_create_view
+            command=self._show_create_view
         )
 
         create_page_button.grid(
