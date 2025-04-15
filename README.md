@@ -17,6 +17,8 @@ Uutisartikkelihallinta-sovellus, tehty ohjelmistotekniikan harjoitustyönä kev�
 
 ### Sovelluksen käyttö
 
+Lataa projektin viimeisimmän [releasen](https://github.com/jipeso/ohjelmistotekniikka/releases) lähdekoodi valitsemalla _Assets_-osion alta _Source code_.
+
 Asenna riippuvuudet komennolla:
 
 ```bash
