@@ -1,4 +1,4 @@
-from tkinter import ttk, constants, scrolledtext
+from tkinter import ttk, constants, scrolledtext, messagebox
 from services.article_service import article_service
 
 
@@ -28,6 +28,10 @@ class CreateView:
         if title and content and url:
             article_service.create_article(title, content, url)
             self._show_articles_view()
+        
+        else:
+            messagebox.showerror(
+                "empty fields", "missing title, content or url")
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
@@ -43,25 +47,23 @@ class CreateView:
             row=0,
             column=0,
             padx=5,
-            pady=10,
+            pady=5,
             sticky=constants.W
         )
-
 
     def _initialize_fields(self):
         title_label = ttk.Label(
             master=self._frame, text="title"
         )
-        title_label.grid(row=1, column=1, padx=10, pady=5, sticky=constants.W)
+        title_label.grid(row=1, column=1, padx=5, pady=5, sticky=constants.W)
 
         self._title_entry = ttk.Entry(master=self._frame)
-        self._title_entry.grid(row=2, column=1,  padx=10,
-                               pady=5, sticky=constants.EW)
+        self._title_entry.grid(row=2, column=1,  padx=5, sticky=constants.EW)
 
         content_label = ttk.Label(
             master=self._frame, text="content"
         )
-        content_label.grid(row=3, column=1, padx=10,
+        content_label.grid(row=3, column=1, padx=5,
                            pady=5, sticky=constants.W)
 
         self._content_entry = scrolledtext.ScrolledText(
@@ -70,24 +72,16 @@ class CreateView:
             height=7
         )
 
-        self._content_entry.grid(row=4, column=1, padx=10,
-                                 pady=5, sticky=constants.EW)
+        self._content_entry.grid(row=4, column=1, padx=5, sticky=constants.EW)
 
         url_label = ttk.Label(
             master=self._frame, text="url"
         )
-        url_label.grid(row=5, column=1, padx=10, pady=5, sticky=constants.W)
+        url_label.grid(row=5, column=1, padx=5, pady=5, sticky=constants.W)
 
         self._url_entry = ttk.Entry(master=self._frame)
 
-        self._url_entry.grid(row=6, column=1, padx=10,
-                             pady=5, sticky=constants.EW)
-
-    def _initialize(self):
-        self._frame = ttk.Frame(master=self._root)
-
-        self._initialize_header()
-        self._initialize_fields()
+        self._url_entry.grid(row=6, column=1, padx=5, sticky=constants.EW)
 
         create_button = ttk.Button(
             master=self._frame,
@@ -95,8 +89,14 @@ class CreateView:
             command=self._handle_create
         )
 
-        create_button.grid(row=7, column=1, padx=10,
+        create_button.grid(row=7, column=1, padx=5,
                            pady=10, sticky=constants.W)
+
+    def _initialize(self):
+        self._frame = ttk.Frame(master=self._root)
+
+        self._initialize_header()
+        self._initialize_fields()
 
         self._frame.grid_columnconfigure(0, weight=1)
         self._frame.grid_columnconfigure(1, weight=2)

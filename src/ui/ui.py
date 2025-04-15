@@ -72,3 +72,5 @@ class UI:
             article,
             self._show_article_view
         )
+
+        self._current_view.pack()

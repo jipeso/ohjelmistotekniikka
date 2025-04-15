@@ -15,3 +15,7 @@
 
 - Tallennus vaihdettu json:iin
 - Käyttäjä voi tallentaa rss-syötteen tuloksia klikkaamalla otsikkoa
+
+## Viikko 5
+
+- Käyttäjä voi muokata tallennettuja artikkeleja

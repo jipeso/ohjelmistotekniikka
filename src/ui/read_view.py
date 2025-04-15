@@ -2,6 +2,7 @@ import webbrowser
 from tkinter import ttk, constants, scrolledtext, messagebox
 from services.article_service import article_service
 
+
 class ReadView:
     def __init__(self, root, article, show_articles_view, show_edit_view):
         self._root = root
@@ -18,7 +19,7 @@ class ReadView:
     def destroy(self):
         self._frame.destroy()
 
-    def _on_link_click(self):
+    def _on_link_click(self, event):
         try:
             webbrowser.open_new(self._article.url)
         except Exception:
@@ -31,7 +32,7 @@ class ReadView:
             font=("Times", 16, "bold"),
             wraplength=400
         )
-        title_label.grid(row=1, column=1, padx=10,
+        title_label.grid(row=1, column=1, padx=5,
                          pady=5, sticky=constants.EW)
 
         url_label = ttk.Label(
@@ -42,7 +43,7 @@ class ReadView:
         )
         url_label.bind("<Button-1>", self._on_link_click)
 
-        url_label.grid(row=2, column=1, padx=10, pady=5, sticky=constants.W)
+        url_label.grid(row=2, column=1, padx=5, pady=5, sticky=constants.W)
 
         content_text = scrolledtext.ScrolledText(
             master=self._frame,
@@ -55,17 +56,17 @@ class ReadView:
 
         content_text.insert("1.0", self._article.content)
         content_text.config(state="disabled")
-        content_text.grid(row=3, column=1, padx=10,
+        content_text.grid(row=3, column=1, padx=5,
                           pady=5, sticky=constants.EW)
 
     def _confirm_delete(self):
-        if messagebox.askyesno("confirm delete", f"delete '{self._article.title}'?"):   
+        if messagebox.askyesno("confirm delete", f"delete '{self._article.title}'?"):
             article_service.remove_article(self._article.id)
             self._show_articles_view()
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
-        header_frame.grid(row=0, column=0, columnspan=3, sticky=constants.EW)
+        header_frame.grid(row=0, column=0, columnspan=2, sticky=constants.EW)
 
         back_button = ttk.Button(
             master=header_frame,
@@ -77,14 +78,14 @@ class ReadView:
             row=0,
             column=0,
             padx=5,
-            pady=10,
+            pady=5,
             sticky=constants.W
         )
 
         edit_button = ttk.Button(
             master=header_frame,
             text="edit article",
-            command=self._show_edit_view(self._article)
+            command=lambda: self._show_edit_view(self._article)
         )
 
         edit_button.grid(
@@ -105,7 +106,7 @@ class ReadView:
             row=0,
             column=2,
             padx=5,
-            pady=10,
+            pady=5,
             sticky=constants.W
         )
 

@@ -36,16 +36,18 @@ class ArticleRepository:
     def delete_all(self):
         self._write([])
 
-    def edit(self, article_id, title, content, url):
+    def edit(self, edited_article):
         articles = self.find_all()
 
         for article in articles:
-            if article.id == article_id:
-                article.title = title
-                article.content = content
-                article.url = url
+            if article.id == edited_article.id:
+                article.title = edited_article.title
+                article.content = edited_article.content
+                article.url = edited_article.url
 
         self._write(articles)
+
+        return edited_article
 
     def _read(self):
         articles = []

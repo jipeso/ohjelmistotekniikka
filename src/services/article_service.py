@@ -28,7 +28,10 @@ class ArticleService:
         self._article_repository.delete(article_id)
 
     def edit_article(self, article_id, title, content, url):
-        return self._article_repository.edit(article_id, title, content, url)
+        edited_article = Article(
+            article_id=article_id, title=title, content=content, url=url)
+
+        return self._article_repository.edit(edited_article)
 
     def scrape_web_article(self, url):
         news_article = NewsArticle(url)

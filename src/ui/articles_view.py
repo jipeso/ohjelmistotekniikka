@@ -86,7 +86,7 @@ class ArticlesView:
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
-        header_frame.grid(row=0, column=0, columnspan=2, sticky=constants.W)
+        header_frame.grid(row=0, column=0, columnspan=3, sticky=constants.EW)
 
         search_page_button = ttk.Button(
             master=header_frame,
@@ -98,7 +98,7 @@ class ArticlesView:
             row=0,
             column=0,
             padx=5,
-            pady=10,
+            pady=5,
             sticky=constants.W
         )
 
@@ -112,7 +112,7 @@ class ArticlesView:
             row=0,
             column=1,
             padx=5,
-            pady=10,
+            pady=5,
             sticky=constants.W
         )
 
