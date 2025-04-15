@@ -36,6 +36,17 @@ class ArticleRepository:
     def delete_all(self):
         self._write([])
 
+    def edit(self, article_id, title, content, url):
+        articles = self.find_all()
+
+        for article in articles:
+            if article.id == article_id:
+                article.title = title
+                article.content = content
+                article.url = url
+
+        self._write(articles)
+
     def _read(self):
         articles = []
         data = read_file_lines(self._file_path)

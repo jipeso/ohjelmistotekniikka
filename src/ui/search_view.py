@@ -10,7 +10,7 @@ class SearchView:
         self._show_articles_view = show_articles_view
         self._show_create_view = show_create_view
         self._frame = None
-        self._search_input = None
+        self._search_entry = None
         self._result_list_frame = None
         self._result_list_view = None
 
@@ -95,11 +95,11 @@ class SearchView:
         search_label = ttk.Label(
             master=self._frame, text="search for articles")
 
-        self._search_input = ttk.Entry(master=self._frame)
+        self._search_entry = ttk.Entry(master=self._frame)
 
         search_label.grid(row=1, column=2, pady=5, sticky=constants.W)
 
-        self._search_input.grid(row=2, column=2, pady=5, sticky=constants.W)
+        self._search_entry.grid(row=2, column=2, pady=5, sticky=constants.W)
 
         search_button = ttk.Button(
             master=self._frame,

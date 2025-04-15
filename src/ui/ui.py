@@ -2,6 +2,7 @@ from ui.articles_view import ArticlesView
 from ui.search_view import SearchView
 from ui.read_view import ReadView
 from ui.create_view import CreateView
+from ui.edit_view import EditView
 
 
 class UI:
@@ -25,6 +26,7 @@ class UI:
             self._root,
             article,
             self._show_articles_view,
+            self._show_edit_view
         )
 
         self._current_view.pack()
@@ -61,3 +63,12 @@ class UI:
         )
 
         self._current_view.pack()
+
+    def _show_edit_view(self, article):
+        self._hide_current_view()
+
+        self._current_view = EditView(
+            self._root,
+            article,
+            self._show_article_view
+        )
