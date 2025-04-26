@@ -1,4 +1,4 @@
-from tkinter import ttk, constants, messagebox
+from tkinter import ttk, constants, messagebox, Canvas
 
 from services.feed_service import feed_service
 from services.article_service import article_service
@@ -61,11 +61,11 @@ class SearchView:
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
-        header_frame.grid(row=0, column=0, columnspan=3, sticky=constants.EW)
+        header_frame.grid(row=0, column=0, columnspan=2, sticky=constants.EW)
 
         articles_page_button = ttk.Button(
             master=header_frame,
-            text="articles page",
+            text="back",
             command=self._show_articles_view
         )
 
@@ -77,38 +77,6 @@ class SearchView:
             sticky=constants.W
         )
 
-        create_page_button = ttk.Button(
-            master=header_frame,
-            text="create article",
-            command=self._show_create_view
-        )
-
-        create_page_button.grid(
-            row=0,
-            column=1,
-            padx=5,
-            pady=5,
-            sticky=constants.W
-        )
-
-    def _initialize_search_field(self):
-        search_label = ttk.Label(
-            master=self._frame, text="search for articles")
-
-        self._search_entry = ttk.Entry(master=self._frame)
-
-        search_label.grid(row=1, column=2, pady=5, sticky=constants.W)
-
-        self._search_entry.grid(row=2, column=2, pady=5, sticky=constants.W)
-
-        search_button = ttk.Button(
-            master=self._frame,
-            text="search",
-            command=self._handle_search
-        )
-
-        search_button.grid(row=3, column=2, pady=5, sticky=constants.W)
-
     def _initialize_result_list(self, articles):
         if self._result_list_view:
             self._result_list_view.destroy()
@@ -116,18 +84,19 @@ class SearchView:
         self._result_list_view = ResultView(
             self._result_list_frame,
             articles,
-            self.handle_add_article
+            self._handle_add_article
         )
 
         self._result_list_view.pack()
 
-    def _handle_search(self):
-        pass
-
-    def handle_add_article(self, article):
+    def _handle_add_article(self, article):
         if messagebox.askyesno("add to article list", f"add '{article.title}'?"):
-            article_service.scrape_web_article(article.url)
-            self._show_articles_view()
+            try:
+                article_service.scrape_web_article(article.url)
+                self._show_articles_view()
+            except Exception:
+                messagebox.showerror("Error", "failed to add article")
+                print(f"could not scrape article from url: {article.url}")
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
@@ -135,7 +104,6 @@ class SearchView:
 
         self._initialize_header()
         self._initialize_feed_selector()
-        self._initialize_search_field()
 
         self._result_list_frame.grid(
             row=4,
@@ -154,7 +122,11 @@ class ResultView:
     def __init__(self, root, articles, handle_add_article):
         self._root = root
         self._articles = articles
-        self.handle_add_article = handle_add_article
+        self._handle_add_article = handle_add_article
+        self._frame = None
+        self._canvas = None
+        self._list_frame = None
+        self._scrollbar = None
         self._initialize()
 
     def pack(self):
@@ -164,7 +136,7 @@ class ResultView:
         self._frame.destroy()
 
     def _initialize_result_item(self, article, index):
-        item_frame = ttk.Frame(master=self._frame)
+        item_frame = ttk.Frame(master=self._list_frame)
 
         bg_color = "#f2f2f2" if index % 2 == 0 else "#ffffff"
 
@@ -177,14 +149,24 @@ class ResultView:
             padding=5
         )
         label.grid(row=0, column=0, sticky=constants.EW)
-        label.bind("<Button-1>", lambda e: self.handle_add_article(article))
+        label.bind("<Button-1>", lambda e: self._handle_add_article(article))
 
         item_frame.grid_columnconfigure(0, weight=1)
 
         item_frame.pack(fill=constants.X)
 
+    def _on_canvas_configure(self, event=None):
+        self._canvas.itemconfig(self._list_frame_window,
+                                width=self._canvas.winfo_width())
+
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
+        self._canvas = Canvas(self._frame)
+        self._list_frame = ttk.Frame(self._canvas)
+        self._scrollbar = ttk.Scrollbar(
+            self._frame, command=self._canvas.yview)
+
+        self._canvas.configure(yscrollcommand=self._scrollbar.set)
 
         results_label = ttk.Label(
             master=self._frame,
@@ -194,5 +176,22 @@ class ResultView:
 
         results_label.pack(pady=5, anchor=constants.W)
 
+        self._scrollbar.pack(side=constants.RIGHT, fill=constants.Y)
+        self._canvas.pack(side=constants.LEFT,
+                          fill=constants.BOTH, expand=True)
+
+        self._list_frame_window = self._canvas.create_window(
+            (0, 0),
+            window=self._list_frame,
+            anchor=constants.NW
+        )
+
+        self._canvas.bind("<Configure>", self._on_canvas_configure)
+
         for index, article in enumerate(self._articles):
             self._initialize_result_item(article, index)
+
+        self._frame.pack(fill=constants.BOTH, expand=True)
+
+        self._canvas.update_idletasks()
+        self._canvas.config(scrollregion=self._canvas.bbox("all"))

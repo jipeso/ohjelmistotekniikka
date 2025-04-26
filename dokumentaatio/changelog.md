@@ -19,3 +19,7 @@
 ## Viikko 5
 
 - Käyttäjä voi muokata tallennettuja artikkeleja
+
+## Viikko 6
+
+- Rss-syöte näyttää enemmän artikkeleja kerralla ja tuloksia voi skrollata

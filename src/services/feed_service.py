@@ -17,10 +17,10 @@ class FeedService:
 
         return self._feed_repository.create(feed)
 
-    def parse_feed(self, url, limit=10):
+    def parse_feed(self, url):
         articles = self._feed_repository.parse(url)
 
-        return articles[:limit]
+        return articles
 
     def get_all_feeds(self):
         return self._feed_repository.find_all()

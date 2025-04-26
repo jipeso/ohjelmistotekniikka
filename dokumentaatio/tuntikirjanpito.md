@@ -13,4 +13,5 @@
 |  5.4  | 5    | json tallennus, hakutulosten tallennus    |
 | 14.4  | 2    | artikkelien muokkaus                      |
 | 15.4  | 4    | artikkelien muokkaus ja UI asettelua      |
-|  yht  | 35   |                                           |
+| 26.4  | 5    | enemmän rss-syötteen tuloksia ja syötteen skrollattavuus |
+|  yht  | 40   |                                           |

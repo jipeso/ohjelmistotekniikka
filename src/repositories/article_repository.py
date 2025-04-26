@@ -1,6 +1,6 @@
 from entities.article import Article
 from config import ARTICLES_FILE_PATH
-from util import read_file_lines, write_file_lines
+from util import read_json_file, write_json_file
 
 
 class ArticleRepository:
@@ -51,7 +51,7 @@ class ArticleRepository:
 
     def _read(self):
         articles = []
-        data = read_file_lines(self._file_path)
+        data = read_json_file(self._file_path)
 
         for article in data:
             article_id = article.get("id")
@@ -74,7 +74,7 @@ class ArticleRepository:
             for article in articles
         ]
 
-        write_file_lines(self._file_path, data)
+        write_json_file(self._file_path, data)
 
 
 article_repository = ArticleRepository(ARTICLES_FILE_PATH)

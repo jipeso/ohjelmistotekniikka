@@ -28,7 +28,7 @@ class CreateView:
         if title and content and url:
             article_service.create_article(title, content, url)
             self._show_articles_view()
-        
+
         else:
             messagebox.showerror(
                 "empty fields", "missing title, content or url")

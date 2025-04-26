@@ -2,8 +2,8 @@ name: CI
 
 env:
   CI: true
-  ARTICLES_FILENAME: articles.csv
-  FEEDS_FILENAME: feeds.csv
+  ARTICLES_FILENAME: articles.json
+  FEEDS_FILENAME: feeds.json
 
 on:
   push:

@@ -90,7 +90,7 @@ class ArticlesView:
 
         search_page_button = ttk.Button(
             master=header_frame,
-            text="search page",
+            text="find articles",
             command=self._show_search_view
         )
 
