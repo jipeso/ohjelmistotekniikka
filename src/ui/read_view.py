@@ -4,7 +4,22 @@ from services.article_service import article_service
 
 
 class ReadView:
+    """Artikkelin tiedot näyttävä näkymä."""
+
     def __init__(self, root, article, show_articles_view, show_edit_view):
+        """Luokan konstruktori. Luo uuden artikkelin lukemis-näkymän.
+
+        Args:
+            root:
+                Tkinter-elementti, jonka sisään näkymä alustetaan.
+            article:
+                Article-olio, joka näkymässä näytetään.
+            show_articles_view:
+                Kutsuttava funktio, joka vaihtaa näkymän päänäkymään.
+            show_edit_view:
+                Kutsuttava funktio, joka vaihtaa näkymän artikkelin editointi-näkymään. Saa argumentiksi Article-olion.
+        """
+
         self._root = root
         self._article = article
         self._show_articles_view = show_articles_view
@@ -51,7 +66,8 @@ class ReadView:
             font=("Times", 12),
             background="#F1F8F2",
             padx=5,
-            pady=5
+            pady=5,
+            height=15
         )
 
         content_text.insert("1.0", self._article.content)

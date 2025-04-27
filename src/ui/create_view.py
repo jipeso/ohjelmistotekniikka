@@ -3,7 +3,17 @@ from services.article_service import article_service
 
 
 class CreateView:
+    """Artikkelin luomisesta vastaava näkymä"""
+
     def __init__(self, root, show_articles_view):
+        """Luokan konstruktori. Luo uuden artikkelin luonti-näkymän.
+
+        Args:
+            root:
+                Tkinter-elementti, jonka sisään näkymä alustetaan.
+            show_articles_view:
+                Kutsuttava funktio, joka vaihtaa näkymän päänäkymään.
+        """
         self._root = root
         self._show_articles_view = show_articles_view
         self._frame = None
@@ -15,9 +25,11 @@ class CreateView:
         self._initialize()
 
     def pack(self):
+        """Näyttää näkymän"""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa näkymän"""
         self._frame.destroy()
 
     def _handle_create(self):

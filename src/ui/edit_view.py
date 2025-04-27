@@ -3,7 +3,20 @@ from services.article_service import article_service
 
 
 class EditView:
+    """Artikkelin editoimisesta vastaava näkymä."""
+
     def __init__(self, root, article, show_read_view):
+        """Luokan konstruktori. Luo uuden editointinäkymän.
+
+        Args:
+            root:
+                Tkinter-elementti, jonka sisään näkymä alustetaan.
+            article:
+                Artikkeli-elementti, joka näkymässä näytetään.
+            show_read_view:
+                Kutsuttava funktio, joka vaihtaa näkymän artikkelin lukemis-näkymään. Saa argumentiksi Article-olion.
+        """
+
         self._root = root
         self._article = article
         self._show_read_view = show_read_view
@@ -16,9 +29,11 @@ class EditView:
         self._initialize()
 
     def pack(self):
+        """Näyttää näkymän."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa näkymän."""
         self._frame.destroy()
 
     def _initialize_fields(self):
@@ -37,21 +52,18 @@ class EditView:
             font=("Times", 12),
             padx=5,
             pady=5,
-            height=15
+            height=12
         )
         self._content_entry.insert("1.0", self._article.content)
 
         title_label.grid(row=1, column=1, padx=5, pady=5, sticky=constants.W)
-        self._title_entry.grid(row=2, column=1, padx=5,
-                               pady=5, sticky=constants.EW)
+        self._title_entry.grid(row=2, column=1, padx=5, sticky=constants.EW)
 
         url_label.grid(row=3, column=1, padx=5, pady=5, sticky=constants.W)
-        self._url_entry.grid(row=4, column=1, padx=5,
-                             pady=5, sticky=constants.EW)
+        self._url_entry.grid(row=4, column=1, padx=5, sticky=constants.EW)
 
         content_label.grid(row=5, column=1, padx=5, pady=5, sticky=constants.W)
-        self._content_entry.grid(
-            row=6, column=1, padx=5, pady=5, sticky=constants.EW)
+        self._content_entry.grid(row=6, column=1, padx=5,  sticky=constants.EW)
 
     def _on_save_click(self):
         title = self._title_entry.get()
@@ -77,7 +89,7 @@ class EditView:
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
-        header_frame.grid(row=0, column=0, columnspan=3, sticky=constants.EW)
+        header_frame.grid(row=0, column=0, columnspan=2, sticky=constants.EW)
 
         save_button = ttk.Button(
             master=header_frame,
@@ -98,6 +110,6 @@ class EditView:
         self._initialize_header()
         self._initialize_fields()
 
-        self._frame.grid_columnconfigure(1, weight=1)
-        self._frame.grid_columnconfigure(2, weight=2)
-        self._frame.grid_columnconfigure(3, weight=1)
+        self._frame.grid_columnconfigure(0, weight=1)
+        self._frame.grid_columnconfigure(1, weight=2)
+        self._frame.grid_columnconfigure(2, weight=1)

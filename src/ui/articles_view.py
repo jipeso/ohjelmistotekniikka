@@ -1,26 +1,44 @@
-from tkinter import ttk, constants
+from tkinter import ttk, constants, Canvas, messagebox
 from services.article_service import article_service
 
 
 class ArticleListView:
+    """Artikkelilistasta vastaava näkymä."""
+
     def __init__(self, root, articles, show_article_view):
+        """Luokan konstruktori. Luo uuden listanäkymän.
+
+        Args:
+            root:
+                Tkinter-elementti, jonka sisään näkymä alustetaan.
+            articles:
+                Lista Article-olioita, jotka näytetään näkymässä.
+            show_article_view:
+                Kutsuttava funktio, jota kutsutaan artikkelin otsikkoa klikatessa. Saa argumentiksi Article-olion.
+        """
+
         self._root = root
         self._articles = articles
         self._show_article_view = show_article_view
         self._frame = None
+        self._canvas = None
+        self._list_frame = None
+        self._scrollbar = None
 
         self._initialize()
 
     def pack(self):
+        """Näyttää näkymän."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa näkymän."""
         self._frame.destroy()
 
     def _initialize_article_item(self, article, index):
-        item_frame = ttk.Frame(master=self._frame)
+        item_frame = ttk.Frame(master=self._list_frame)
 
-        bg_color = "#f2f2f2" if index % 2 == 0 else "#ffffff"
+        bg_color = "#F2F2F2" if index % 2 == 0 else "#FFFFFF"
 
         label = ttk.Label(
             master=item_frame,
@@ -37,8 +55,18 @@ class ArticleListView:
 
         item_frame.pack(fill=constants.X)
 
+    def _on_canvas_configure(self, event=None):
+        self._canvas.itemconfig(self._list_frame_window,
+                                width=self._canvas.winfo_width())
+
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
+        self._canvas = Canvas(self._frame, bg="#D3D3D3")
+        self._list_frame = ttk.Frame(self._canvas)
+        self._scrollbar = ttk.Scrollbar(
+            self._frame, command=self._canvas.yview)
+
+        self._canvas.configure(yscrollcommand=self._scrollbar.set)
 
         articles_label = ttk.Label(
             master=self._frame,
@@ -48,12 +76,44 @@ class ArticleListView:
 
         articles_label.pack(pady=5, anchor=constants.W)
 
+        self._scrollbar.pack(side=constants.RIGHT, fill=constants.Y)
+        self._canvas.pack(side=constants.LEFT,
+                          fill=constants.BOTH, expand=True)
+
+        self._list_frame_window = self._canvas.create_window(
+            (0, 0),
+            window=self._list_frame,
+            anchor=constants.NW
+        )
+
+        self._canvas.bind("<Configure>", self._on_canvas_configure)
+
         for index, article in enumerate(self._articles):
             self._initialize_article_item(article, index)
 
+        self._frame.pack(fill=constants.BOTH, expand=True)
+
+        self._canvas.update_idletasks()
+        self._canvas.config(scrollregion=self._canvas.bbox("all"))
+
 
 class ArticlesView:
+    """Sovelluksen päänäkymä, joka vastaa artikkelien listauksesta ja sovelluksen navigaatiosta"""
+
     def __init__(self, root, show_search_view, show_article_view, show_create_view):
+        """Luokan konsttruktori. Luo uuden päänäkymän.
+
+        Args:
+            root:
+                Tkinter-elementti, jonka sisään näkymä alustetaan.
+            show_search_view:
+                Kutsuttava funktio, joka vaihtaa näkymän etsimis-näkymään.
+            show_article_view:
+                Kutsuttava funktio, jota kutsutaan artikkelin otsikkoa klikatessa. Saa argumentiksi artikkelin id-arvon.
+            show_create_view:
+                Kutsuttava funktio, joka vaihtaa näkymän artikkelin luonti-näkymään
+        """
+
         self._root = root
         self._frame = None
         self._show_search_view = show_search_view
@@ -65,9 +125,11 @@ class ArticlesView:
         self._initialize()
 
     def pack(self):
+        """Näyttää näkymän"""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa näkymän"""
         self._frame.destroy()
 
     def _initialize_article_list(self):
@@ -83,6 +145,11 @@ class ArticlesView:
         )
 
         self._article_list_view.pack()
+
+    def _on_clear_article_list(self):
+        if messagebox.askyesno("confirm delete", "delete all articles?"):
+            article_service.remove_all_articles()
+            self._initialize_article_list()
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
@@ -127,6 +194,20 @@ class ArticlesView:
             row=1,
             column=1,
             sticky=constants.EW
+        )
+
+        clear_list_button = ttk.Button(
+            master=self._frame,
+            text="clear articles",
+            command=self._on_clear_article_list
+        )
+
+        clear_list_button.grid(
+            row=2,
+            column=1,
+            padx=5,
+            pady=5,
+            sticky=constants.E
         )
 
         self._frame.grid_columnconfigure(0, weight=1)

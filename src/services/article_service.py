@@ -27,6 +27,9 @@ class ArticleService:
     def remove_article(self, article_id):
         self._article_repository.delete(article_id)
 
+    def remove_all_articles(self):
+        self._article_repository.delete_all()
+
     def edit_article(self, article_id, title, content, url):
         edited_article = Article(
             article_id=article_id, title=title, content=content, url=url)

@@ -23,3 +23,5 @@
 ## Viikko 6
 
 - Rss-syöte näyttää enemmän artikkeleja kerralla ja tuloksia voi skrollata
+- Artikkelilistaa voi skrollata
+- Artikkelien lisäämistä ja poistamista helpotettu

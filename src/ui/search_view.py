@@ -5,10 +5,20 @@ from services.article_service import article_service
 
 
 class SearchView:
-    def __init__(self, root, show_articles_view, show_create_view):
+    """Artikkelien etsimisestä vastaava näkymä"""
+
+    def __init__(self, root, show_articles_view):
+        """Luokan konstruktori. Luo uuden artikkelien etsimisnäkymän.
+
+        Args:
+            root:
+                Tkinter-elementti, jonka sisään näkymä alustetaan.
+            show_articles_view:
+                Kutsuttava funktio, joka vaihtaa näkymän päänäkymään.
+        """
+
         self._root = root
         self._show_articles_view = show_articles_view
-        self._show_create_view = show_create_view
         self._frame = None
         self._search_entry = None
         self._result_list_frame = None
@@ -17,9 +27,11 @@ class SearchView:
         self._initialize()
 
     def pack(self):
+        """Näyttää näkymän."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa näkymän."""
         self._frame.destroy()
 
     def _initialize_feed_selector(self):
@@ -93,9 +105,10 @@ class SearchView:
         if messagebox.askyesno("add to article list", f"add '{article.title}'?"):
             try:
                 article_service.scrape_web_article(article.url)
-                self._show_articles_view()
+                messagebox.showinfo(
+                    "success", f"added article '{article.title}' ")
             except Exception:
-                messagebox.showerror("Error", "failed to add article")
+                messagebox.showerror("fail", "failed to add article")
                 print(f"could not scrape article from url: {article.url}")
 
     def _initialize(self):
@@ -119,7 +132,20 @@ class SearchView:
 
 
 class ResultView:
+    """RSS-syötteen tuloksista vastaava näkymä."""
+
     def __init__(self, root, articles, handle_add_article):
+        """Luokan konstruktori. Luo uuden tulokset-näkymän.
+
+        Args:
+            root:
+                Tkinter-elementti, jonka sisään näkymä luodaan.
+            articles:
+                Lista Article-olioita, jotka näkymässä näytetään.
+            handle_add_article:
+                Kutsuttava funktio, jota kutsutaan klikatessa hakutuloslistan artikkelien otsikoita. Saa argumentiksi Article-olion.
+        """
+
         self._root = root
         self._articles = articles
         self._handle_add_article = handle_add_article
@@ -130,9 +156,11 @@ class ResultView:
         self._initialize()
 
     def pack(self):
+        """Näyttää näkymän."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoaa näkymän."""
         self._frame.destroy()
 
     def _initialize_result_item(self, article, index):

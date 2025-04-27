@@ -58,8 +58,7 @@ class UI:
 
         self._current_view = SearchView(
             self._root,
-            self._show_articles_view,
-            self._show_create_view
+            self._show_articles_view
         )
 
         self._current_view.pack()
