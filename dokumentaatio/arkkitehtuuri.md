@@ -90,10 +90,10 @@ sequenceDiagram
   UI->>FeedService: parse_feed("url")
   FeedService->>FeedRepository: parse(url)
   FeedRepository-->>FeedService: articles
-  ArticleService-->>UI: articles
+  FeedService-->>UI: articles
   UI->>UI: initialize_result_list(articles)
 ```
 
 ### Muut toiminnallisuudet
 
-Samat periaatet toistuu kaikissa toiminnallisuuksissa, käyttöliittymän tapahtumankäsittelijä kutsuu sopivaa sovelluslogiikan metodia, joka päivittää artikkelien tilaa. Kontrollin palautuessa käyttöliittymään aktiivinen näkymä päivitetään.
+Samat periaatteet toistuu kaikissa toiminnallisuuksissa, käyttöliittymän tapahtumankäsittelijä kutsuu sopivaa sovelluslogiikan metodia, joka päivittää artikkelien tilaa. Kontrollin palautuessa käyttöliittymään aktiivinen näkymä päivitetään.
