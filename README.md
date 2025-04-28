@@ -7,6 +7,8 @@ Uutisartikkelihallinta-sovellus, tehty ohjelmistotekniikan harjoitustyönä kev�
 
 ### Dokumentaatio
 
+[Käyttöohje](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/kayttoohje.md)
+
 [Vaatimusmäärittely](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/vaatimusmaarittely.md)
 
 [Tuntikirjanpito](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/tuntikirjanpito.md)
