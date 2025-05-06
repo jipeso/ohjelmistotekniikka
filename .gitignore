@@ -6,4 +6,3 @@ htmlcov
 test-feeds.json
 *.sqlite
 *.xml
-*
