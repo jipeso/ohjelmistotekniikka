@@ -27,6 +27,12 @@ Asenna riippuvuudet komennolla:
 poetry install --no-root
 ```
 
+Suorita tietokannan alustus komennolla:
+
+```bash
+poetry run invoke build
+```
+
 Sovellus käynnistyy komennolla:
 
 ```bash

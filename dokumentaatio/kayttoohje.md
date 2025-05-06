@@ -2,12 +2,27 @@
 
 Lataa projektin viimeisimmän [releasen](https://github.com/jipeso/ohjelmistotekniikka/releases) lähdekoodi valitsemalla _Assets_-osion alta _Source code_.
 
+## Konfigurointi
+
+Tallennustiedostojen nimiä voi muuttaa _.env_ tiedostossa. Tiedostot luodaan automaattisesti _data_-hakemistoon. Tiedostojen nimet voidaan asettaa esimerkiksi seuraavasti:
+
+```
+FEEDS_FILENAME=feeds.json
+DATABASE_FILENAME=db.sqlite
+```
+
 ## Ohjelman käynnistäminen
 
 Ennen ohjelman käynnistämistä, asenna riippuvuudet komennolla:
 
 ```bash
 poetry install --no-root
+```
+
+Jonka jälkeen tietokannan alustus tapahtuu komennolla:
+
+```bash
+poetry run invoke build
 ```
 
 Nyt ohjelman voi käynnistää komennolla:
