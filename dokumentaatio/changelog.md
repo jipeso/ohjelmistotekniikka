@@ -25,3 +25,7 @@
 - Rss-syöte näyttää enemmän artikkeleja kerralla ja tuloksia voi skrollata
 - Artikkelilistaa voi skrollata
 - Artikkelien lisäämistä ja poistamista helpotettu
+
+## Viikko 7
+
+- Artikkelien tallentaminen sqlite-tietokantaan

@@ -25,6 +25,8 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install --no-root
+      - name: Create database
+        run: poetry run invoke build
       - name: Run tests
         run: poetry run invoke coverage
       - name: Lint

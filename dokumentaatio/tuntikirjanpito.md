@@ -15,4 +15,7 @@
 | 15.4  | 4    | artikkelien muokkaus ja UI asettelua      |
 | 26.4  | 5    | enemmän rss-syötteen tuloksia ja syötteen skrollattavuus|
 | 27.4  | 4    | artikkelien lisäämisen ja poistamisen helpottamista ja dokumentaatiota|
-|  yht  | 44   |                                           |
+| 5.5   | 2    | artikkelien tallentaminen tietokantaan|
+| 6.5   | 6    | artikkelien tallentaminen tietokantaan|
+
+|  yht  | 52   | |
