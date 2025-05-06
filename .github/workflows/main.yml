@@ -2,7 +2,7 @@ name: CI
 
 env:
   CI: true
-  ARTICLES_FILENAME: articles.json
+  DATABASE_FILENAME: database.sqlite
   FEEDS_FILENAME: feeds.json
 
 on:

@@ -5,7 +5,7 @@ from services.article_service import article_service
 class EditView:
     """Artikkelin editoimisesta vastaava näkymä."""
 
-    def __init__(self, root, article, show_read_view):
+    def __init__(self, root, article_id, show_read_view):
         """Luokan konstruktori. Luo uuden editointinäkymän.
 
         Args:
@@ -18,7 +18,8 @@ class EditView:
         """
 
         self._root = root
-        self._article = article
+        self._article_id = article_id
+        self._article = None
         self._show_read_view = show_read_view
         self._frame = None
 
@@ -37,6 +38,8 @@ class EditView:
         self._frame.destroy()
 
     def _initialize_fields(self):
+        self._article = article_service.get_article(self._article_id)
+
         title_label = ttk.Label(self._frame, text="title")
         self._title_entry = ttk.Entry(self._frame)
         self._title_entry.insert(0, self._article.title)
@@ -77,7 +80,7 @@ class EditView:
                 content,
                 url
             )
-            self._show_read_view(article)
+            self._show_read_view(self._article_id)
 
         else:
             messagebox.showerror(
@@ -85,7 +88,7 @@ class EditView:
 
     def _on_cancel_click(self):
         self.destroy()
-        self._show_read_view(self._article)
+        self._show_read_view(self._article_id)
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)

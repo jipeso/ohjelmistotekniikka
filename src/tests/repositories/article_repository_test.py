@@ -6,14 +6,12 @@ from entities.article import Article
 class TestArticleRepository(unittest.TestCase):
     def setUp(self):
         article_repository.delete_all()
-
-        self.article_a = Article('test article a', 'testing a', '1')
-        self.article_b = Article('test article b', 'testing b', '2')
+        self.article_a = Article('test article a', 'testing a', 'test.com')
+        self.article_b = Article('test article b', 'testing b', 'test.com')
 
     def test_create(self):
         article_repository.create(self.article_a)
         articles = article_repository.find_all()
-
         self.assertEqual(len(articles), 1)
         self.assertEqual(articles[0].content, self.article_a.content)
         self.assertEqual(articles[0].title, self.article_a.title)

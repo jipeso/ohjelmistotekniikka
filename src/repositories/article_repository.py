@@ -1,80 +1,79 @@
 from entities.article import Article
-from config import ARTICLES_FILE_PATH
-from util import read_json_file, write_json_file
+from database_connection import get_database_connection
+
+
+def get_article_by_row(row):
+    return Article(row["title"], row["content"], row["url"], row["id"]) if row else None
 
 
 class ArticleRepository:
-    def __init__(self, file_path):
-        self._file_path = file_path
+    def __init__(self, connection):
+        self._connection = connection
 
     def find_all(self):
-        return self._read()
+        cursor = self._connection.cursor()
+
+        cursor.execute("select * from articles")
+
+        rows = cursor.fetchall()
+
+        return list(map(get_article_by_row, rows))
 
     def find_by_id(self, article_id):
-        articles = self.find_all()
+        cursor = self._connection.cursor()
 
-        return next((a for a in articles if a.id == article_id), None)
+        cursor.execute(
+            "select * from articles where id=?",
+            (article_id,)
+        )
+        row = cursor.fetchone()
+
+        return get_article_by_row(row)
 
     def create(self, article):
-        articles = self.find_all()
+        cursor = self._connection.cursor()
 
-        articles.append(article)
+        cursor.execute(
+            "insert into articles (title, content, url) values (?, ?, ?)",
+            (article.title, article.content, article.url)
+        )
 
-        self._write(articles)
+        self._connection.commit()
+
+        article.id = cursor.lastrowid
 
         return article
 
     def delete(self, article_id):
-        articles = self.find_all()
+        cursor = self._connection.cursor()
 
-        articles_without_id = filter(
-            lambda article: article.id != article_id, articles
-        )
+        cursor.execute("delete from articles where id=?", (article_id,))
 
-        self._write(articles_without_id)
+        self._connection.commit()
 
     def delete_all(self):
-        self._write([])
+        cursor = self._connection.cursor()
+
+        cursor.execute("delete from articles")
+
+        self._connection.commit()
 
     def edit(self, edited_article):
-        articles = self.find_all()
+        cursor = self._connection.cursor()
 
-        for article in articles:
-            if article.id == edited_article.id:
-                article.title = edited_article.title
-                article.content = edited_article.content
-                article.url = edited_article.url
+        cursor.execute("""
+            update articles
+            set title=?,
+                content=?,
+                url=?
+            where id=?
+            """,
+                       (edited_article.title, edited_article.content,
+                        edited_article.url, edited_article.id)
+                       )
 
-        self._write(articles)
-
+        self._connection.commit()
         return edited_article
 
-    def _read(self):
-        articles = []
-        data = read_json_file(self._file_path)
 
-        for article in data:
-            article_id = article.get("id")
-            title = article.get("title")
-            content = article.get("content")
-            url = article.get("url")
-
-            articles.append(Article(title, content, url, article_id))
-
-        return articles
-
-    def _write(self, articles):
-        data = [
-            {
-                "id": article.id,
-                "title": article.title,
-                "content": article.content,
-                "url": article.url
-            }
-            for article in articles
-        ]
-
-        write_json_file(self._file_path, data)
-
-
-article_repository = ArticleRepository(ARTICLES_FILE_PATH)
+article_repository = ArticleRepository(get_database_connection())

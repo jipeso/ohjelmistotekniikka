@@ -6,7 +6,7 @@ from services.article_service import article_service
 class ReadView:
     """Artikkelin tiedot näyttävä näkymä."""
 
-    def __init__(self, root, article, show_articles_view, show_edit_view):
+    def __init__(self, root, article_id, show_articles_view, show_edit_view):
         """Luokan konstruktori. Luo uuden artikkelin lukemis-näkymän.
 
         Args:
@@ -21,7 +21,8 @@ class ReadView:
         """
 
         self._root = root
-        self._article = article
+        self._article_id = article_id
+        self._article = None
         self._show_articles_view = show_articles_view
         self._show_edit_view = show_edit_view
         self._frame = None
@@ -41,6 +42,8 @@ class ReadView:
             messagebox.showerror("could not open link")
 
     def _initialize_article(self):
+        self._article = article_service.get_article(self._article_id)
+
         title_label = ttk.Label(
             master=self._frame,
             text=self._article.title,
@@ -101,7 +104,7 @@ class ReadView:
         edit_button = ttk.Button(
             master=header_frame,
             text="edit article",
-            command=lambda: self._show_edit_view(self._article)
+            command=lambda: self._show_edit_view(self._article_id)
         )
 
         edit_button.grid(

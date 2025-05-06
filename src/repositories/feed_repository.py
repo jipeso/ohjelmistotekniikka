@@ -1,6 +1,4 @@
-import feedparser
 from entities.feed import Feed
-from entities.article import Article
 from config import FEEDS_FILE_PATH
 from util import read_json_file, write_json_file
 
@@ -46,20 +44,6 @@ class FeedRepository:
         ]
 
         write_json_file(self._file_path, feed_data)
-
-    def parse(self, url):
-        feed = feedparser.parse(url)
-        articles = []
-
-        for entry in feed.entries:
-            article = Article(
-                title=entry.title,
-                content=None,
-                url=entry.link
-            )
-            articles.append(article)
-
-        return articles
 
     def delete(self, feed_id):
         feeds = self.find_all()

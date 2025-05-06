@@ -1,4 +1,7 @@
+import feedparser
+
 from entities.feed import Feed
+from entities.article import Article
 
 from repositories.feed_repository import (
     feed_repository as default_feed_repository
@@ -18,7 +21,16 @@ class FeedService:
         return self._feed_repository.create(feed)
 
     def parse_feed(self, url):
-        articles = self._feed_repository.parse(url)
+        feed = feedparser.parse(url)
+        articles = []
+
+        for entry in feed.entries:
+            article = Article(
+                title=entry.title,
+                content=None,
+                url=entry.link
+            )
+            articles.append(article)
 
         return articles
 

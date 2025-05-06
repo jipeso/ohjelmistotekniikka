@@ -50,7 +50,7 @@ class ArticleListView:
         )
         label.grid(row=0, column=0, sticky=constants.EW)
 
-        label.bind("<Button-1>", lambda e: self._show_article_view(article))
+        label.bind("<Button-1>", lambda e: self._show_article_view(article.id))
         item_frame.grid_columnconfigure(0, weight=1)
 
         item_frame.pack(fill=constants.X)

@@ -1,17 +1,17 @@
 [
-  {
-    "id": "1",
-    "url": "https://www.hs.fi/rss/tuoreimmat.xml",
-    "name": "Helsingin Sanomat"
-  },
-  {
-    "id": "2",
-    "url": "https://www.is.fi/rss/tuoreimmat.xml",
-    "name": "Ilta-Sanomat"
-  },
-  {
-    "id": "3",
-    "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-    "name": "NY-Times"
-  }
-]
+    {
+      "id": "1",
+      "url": "https://www.hs.fi/rss/tuoreimmat.xml",
+      "name": "Helsingin Sanomat"
+    },
+    {
+      "id": "2",
+      "url": "https://www.is.fi/rss/tuoreimmat.xml",
+      "name": "Ilta-Sanomat"
+    },
+    {
+      "id": "3",
+      "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+      "name": "NY-Times"
+    }
+  ]

@@ -3,7 +3,7 @@ __pycache__
 .coverage
 htmlcov
 .env
-articles.json
-test-articles.json
 test-feeds.json
+*.sqlite
 *.xml
+*

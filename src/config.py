@@ -1,15 +1,15 @@
-import os
+from os import path, getenv
 from dotenv import load_dotenv
 
-dirname = os.path.dirname(__file__)
+dirname = path.dirname(__file__)
 
 try:
-    load_dotenv(dotenv_path=os.path.join(dirname, "..", ".env"))
+    load_dotenv(dotenv_path=path.join(dirname, "..", ".env"))
 except FileNotFoundError:
     pass
 
-ARTICLES_FILENAME = os.getenv("ARTICLES_FILENAME") or "articles.json"
-ARTICLES_FILE_PATH = os.path.join(dirname, "..", "data", ARTICLES_FILENAME)
+FEEDS_FILENAME = getenv("FEEDS_FILENAME") or "feeds.json"
+FEEDS_FILE_PATH = path.join(dirname, "..", "data", FEEDS_FILENAME)
 
-FEEDS_FILENAME = os.getenv("FEEDS_FILENAME") or "feeds.json"
-FEEDS_FILE_PATH = os.path.join(dirname, "..", "data", FEEDS_FILENAME)
+DATABASE_FILENAME = getenv("DATABASE_FILENAME") or "database.sqlite"
+DATABASE_FILE_PATH = path.join(dirname, "..", "data", DATABASE_FILENAME)

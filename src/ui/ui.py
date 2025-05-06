@@ -19,12 +19,12 @@ class UI:
 
         self._current_view = None
 
-    def _show_article_view(self, article):
+    def _show_article_view(self, article_id):
         self._hide_current_view()
 
         self._current_view = ReadView(
             self._root,
-            article,
+            article_id,
             self._show_articles_view,
             self._show_edit_view
         )
@@ -63,12 +63,12 @@ class UI:
 
         self._current_view.pack()
 
-    def _show_edit_view(self, article):
+    def _show_edit_view(self, article_id):
         self._hide_current_view()
 
         self._current_view = EditView(
             self._root,
-            article,
+            article_id,
             self._show_article_view
         )
 
