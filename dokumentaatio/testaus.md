@@ -18,7 +18,7 @@ Käyttöliittymäkerrosta lukuunottamatta sovelluksen testauksen haaraumakattavu
 
 ![](./kuvat/testikattavuus.png)
 
-Testaamatta jäivät `ArticleService`-luokan uusimmat metodit edit_article, filter_articles ja scrape_web_article sekä `FeedService`-luokan parse_feed metodi. Lisäksi _build.py_- ja _initialize\_database.py_-tiedostojen suorittaminen komentoriviltä ja jäi testaamatta.
+Testaamatta jäivät `ArticleService`-luokan uusimmat metodit edit_article, filter_articles ja scrape_web_article sekä `FeedService`-luokan parse_feed metodi. Lisäksi _build.py_- ja _initialize\_database.py_-tiedostojen suorittaminen komentoriviltä jäi testaamatta.
 
 ## Järjestelmätestaus
 

@@ -4,7 +4,7 @@ Lataa projektin viimeisimmän [releasen](https://github.com/jipeso/ohjelmistotek
 
 ## Konfigurointi
 
-Artikkelien tallennustiedoston nimeä muuttaa _.env_ tiedostossa. Tiedosto luodaan automaattisesti _data_-hakemistoon. Tiedoston nimi voidaan asettaa seuraavasti:
+Artikkelien tallennustiedoston nimeä on mahdollista muuttaa _.env_ tiedostossa. Tiedosto luodaan automaattisesti _data_-hakemistoon. Tiedoston nimi voidaan asettaa seuraavasti:
 
 ```
 DATABASE_FILENAME=db.sqlite
@@ -18,13 +18,13 @@ Ennen ohjelman käynnistämistä, asenna riippuvuudet komennolla:
 poetry install --no-root
 ```
 
-Jonka jälkeen tietokannan alustus tapahtuu komennolla:
+Tietokanta tulee alustaa seuraavaksi komennolla:
 
 ```bash
 poetry run invoke build
 ```
 
-Nyt ohjelman voi käynnistää komennolla:
+Ohjelman voi nyt käynnistää komennolla:
 
 ```bash
 poetry run invoke start

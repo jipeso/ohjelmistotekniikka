@@ -22,34 +22,15 @@ Jokainen näkymä on toteutettu omana luokkanaan, joista ainoastaa yksi on kerra
 
 ## Tietojen pysyväistallennus
 
-Pakkauksen _repositories_ luokat `ArticleRepository` ja `FeedRepository` huolehtivat tietojen tallentamisesta. Tiedot tallennetaan JSON-tiedostoihin.
+Pakkauksen _repositories_ luokka `ArticleRepository` huolehtii artikkelien tallentamisesta. Tiedot tallennetaan SQLite-tietokantaan.
 
 ### Tiedostot
 
-Sovellus tallentaa artikkelien ja syötteiden tiedot JSON-tiedostoihin.
+Sovellus sisältää json-tiedoston, jossa on muutamia esimerkkisyötteitä RSS-lukutoimintoa varten.
 
-Sovelluksen juureen voidaan luoda halutessa .env tiedosto, jossa tiedostojen nimet voidaan määritellä.
+Sovellus tallentaa artikkelit SQLite-tietokannan tauluun `articles`, joka alustetaan [initialize_database.py](https://github.com/jipeso/ohjelmistotekniikka/blob/main/src/initialize_database.py)-tiedostossa.
 
-Sovellus tallettaa artikkelit JSON-tiedostoon seuraavassa formaatissa:
-
-```
-[
-  {
-    "id": "013603e5-4839-4cf8-b1ea-e579c430379a",
-    "title": "otsikkoteksti",
-    "content": "kontentti\n",
-    "url": "osoite.com"
-  },
-  {
-    "id": "c93c94c4-7d4b-48aa-82ae-381e650a10f0",
-    "title": "toinen esimerkki",
-    "content": "jotain kontenttia\n",
-    "url": "osoite.fi"
-  }
-]
-```
-
-Eli artikkelin id, otsikko, sisältö, URL-osoite tallennetaan JSON-objektina listaan. 
+Sovelluksen juureen voidaan luoda halutessa .env tiedosto, jossa tiedoston nimi voidaan määritellä.
 
 ## Päätoiminnallisuudet
 
@@ -88,9 +69,7 @@ sequenceDiagram
   participant FeedRepository
   User->>UI: select a RSS-feed
   UI->>FeedService: parse_feed("url")
-  FeedService->>FeedRepository: parse(url)
-  FeedRepository-->>FeedService: articles
-  FeedService-->>UI: articles
+  FeedService->>UI: articles
   UI->>UI: initialize_result_list(articles)
 ```
 
