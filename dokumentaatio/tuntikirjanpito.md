@@ -17,5 +17,5 @@
 | 27.4  | 4    | artikkelien lisäämisen ja poistamisen helpottamista ja dokumentaatiota|
 | 5.5   | 2    | artikkelien tallentaminen tietokantaan|
 | 6.5   | 6    | artikkelien tallentaminen tietokantaan|
-
-|  yht  | 52   | |
+| 7.5   | 3    | artikkelilistan suodattaminen|
+|  yht  | 55   | |
