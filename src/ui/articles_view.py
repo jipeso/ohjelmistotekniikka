@@ -116,6 +116,7 @@ class ArticlesView:
 
         self._root = root
         self._frame = None
+        self._articles = []
         self._show_search_view = show_search_view
         self._show_article_view = show_article_view
         self._show_create_view = show_create_view
@@ -132,11 +133,16 @@ class ArticlesView:
         """Tuhoaa näkymän"""
         self._frame.destroy()
 
-    def _initialize_article_list(self):
+    def _initialize_article_list(self, filtered_articles=None):
         if self._article_list_view:
             self._article_list_view.destroy()
 
-        articles = article_service.get_all_articles()
+        if filtered_articles is None:
+            print("fetching articles from db")
+            articles = article_service.get_all_articles()
+            self._articles = articles
+        else:
+            articles = filtered_articles
 
         self._article_list_view = ArticleListView(
             self._article_list_frame,
@@ -150,6 +156,52 @@ class ArticlesView:
         if messagebox.askyesno("confirm delete", "delete all articles?"):
             article_service.remove_all_articles()
             self._initialize_article_list()
+
+    def _on_filter_change(self, filter_text):
+        if len(self._articles) == 0:
+            return
+
+        if not filter_text.strip():
+            self._initialize_article_list(self._articles)
+            return
+
+        filtered_articles = article_service.filter_articles(
+            self._articles,
+            filter_text
+        )
+        self._initialize_article_list(filtered_articles)
+
+    def _initialize_filter_field(self):
+        placeholder_text = "filter articles"
+
+        filter_entry = ttk.Entry(
+            master=self._frame,
+            width=15,
+            foreground="gray"
+        )
+
+        filter_entry.insert(0, placeholder_text)
+
+        def on_focus_in(event):
+            if filter_entry.get() == "filter articles":
+                filter_entry.delete(0, constants.END)
+                filter_entry.config(foreground="black")
+
+        def on_focus_out(event):
+            if not filter_entry.get():
+                filter_entry.insert(0, placeholder_text)
+                filter_entry.config(foreground="gray")
+
+        filter_entry.bind("<FocusIn>", on_focus_in)
+        filter_entry.bind("<FocusOut>", on_focus_out)
+        filter_entry.bind(
+            "<KeyRelease>", lambda e: self._on_filter_change(filter_entry.get()))
+
+        filter_entry.grid(
+            row=1,
+            column=1,
+            sticky=constants.E
+        )
 
     def _initialize_header(self):
         header_frame = ttk.Frame(master=self._frame)
@@ -189,9 +241,10 @@ class ArticlesView:
 
         self._initialize_header()
         self._initialize_article_list()
+        self._initialize_filter_field()
 
         self._article_list_frame.grid(
-            row=1,
+            row=2,
             column=1,
             sticky=constants.EW
         )
@@ -203,7 +256,7 @@ class ArticlesView:
         )
 
         clear_list_button.grid(
-            row=2,
+            row=3,
             column=1,
             padx=5,
             pady=5,

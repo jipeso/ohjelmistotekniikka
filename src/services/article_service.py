@@ -24,6 +24,14 @@ class ArticleService:
     def get_article(self, article_id):
         return self._article_repository.find_by_id(article_id)
 
+    def filter_articles(self, articles, filter_text):
+        filtered_articles = []
+
+        for article in articles:
+            if filter_text.lower() in article.title.lower():
+                filtered_articles.append(article)
+        return filtered_articles
+
     def remove_article(self, article_id):
         self._article_repository.delete(article_id)
 
