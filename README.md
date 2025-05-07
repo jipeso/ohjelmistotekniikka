@@ -15,6 +15,8 @@ Uutisartikkelihallinta-sovellus, tehty ohjelmistotekniikan harjoitustyönä kev�
 
 [Changelog](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/changelog.md)
 
+[Testausdokumentti](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/testaus.md)
+
 [Arkkitehtuurikuvaus](https://github.com/jipeso/ohjelmistotekniikka/blob/main/dokumentaatio/arkkitehtuuri.md)
 
 ### Sovelluksen käyttö
