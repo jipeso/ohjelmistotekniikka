@@ -4,10 +4,9 @@ Lataa projektin viimeisimmän [releasen](https://github.com/jipeso/ohjelmistotek
 
 ## Konfigurointi
 
-Tallennustiedostojen nimiä voi muuttaa _.env_ tiedostossa. Tiedostot luodaan automaattisesti _data_-hakemistoon. Tiedostojen nimet voidaan asettaa esimerkiksi seuraavasti:
+Artikkelien tallennustiedoston nimeä muuttaa _.env_ tiedostossa. Tiedosto luodaan automaattisesti _data_-hakemistoon. Tiedoston nimi voidaan asettaa seuraavasti:
 
 ```
-FEEDS_FILENAME=feeds.json
 DATABASE_FILENAME=db.sqlite
 ```
 

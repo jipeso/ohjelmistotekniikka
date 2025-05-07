@@ -29,3 +29,4 @@
 ## Viikko 7
 
 - Artikkelien tallentaminen sqlite-tietokantaan
+- Artikkelilistaa voi suodattaa syötekentän avullla

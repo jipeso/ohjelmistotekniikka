@@ -138,7 +138,6 @@ class ArticlesView:
             self._article_list_view.destroy()
 
         if filtered_articles is None:
-            print("fetching articles from db")
             articles = article_service.get_all_articles()
             self._articles = articles
         else:
